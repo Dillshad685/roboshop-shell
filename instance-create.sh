@@ -20,7 +20,7 @@ do
              RECORD_NAME="$instance.$DOMAIN_NAME"
         fi
 
-        echo '$instance:$IP'
+        echo "$instance:$IP"
 
          aws route53 change-resource-record-sets \
        --hosted-zone-id $ZONE_ID \
