@@ -2,7 +2,7 @@
 
 #!/bin/bash
 
-AMI_ID="ami-09c813fb71547fc4f" 
+AMI_ID="ami-0220d79f3f480ecf5" 
 SG_ID="sg-0c30fff245cb18154"
 ZONE_ID="Z0375645LTAC4FZXZR6K"
 DOMAIN_NAME="dillshad.space"
