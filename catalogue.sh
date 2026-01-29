@@ -17,7 +17,7 @@ SCRIPT_DIR=$PWD
 echo "log file path: $LOG_FILE"
 
 
-mkdir -p $LOG_FILE  &>>$LOG_FILE
+mkdir -p $LOG_FOLDER  &>>$LOG_FILE
 echo "Script started executing from $(date)" | tee -a $LOG_FILE 
 
 if [ $USERID -ne 0 ]; then
