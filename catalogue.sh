@@ -11,13 +11,12 @@ N="\e[0m"
 #======================= to create log file ========================================#
 
 LOG_FOLDER="/var/log/roboshop-shell"
+echo "$0"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log"
 SCRIPT_DIR=$PWD
-echo "log file path: $LOG_FILE"
-
-
 mkdir -p $LOG_FOLDER  &>>$LOG_FILE
+echo "log file path: $LOG_FILE"
 echo "Script started executing from $(date)" | tee -a $LOG_FILE 
 
 USERID=$(id -u) 
@@ -31,7 +30,7 @@ fi
 
 dnf module disable nodejs -y &>>$LOG_FILE
 dnf module enable nodejs:20 -y  &>>$LOG_FILE
-dnf module install nodejs -y &>>$LOG_FILE
+dnf install nodejs -y &>>$LOG_FILE
 echo -e "installing nodejs is $G success $N"
 
 #===========user creation===============#
@@ -47,6 +46,7 @@ mkdir -p /app
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE
 cd /app &>>$LOG_FILE
 rm -rf /app/* &>>$LOG_FILE
+cd /app 
 unzip /tmp/catalogue.zip 
 cd /app 
 npm install &>>$LOG_FILE
