@@ -38,6 +38,7 @@ echo -e "installing nodejs is $G success $N"
 id roboshop 
 if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>LOG_FILE
+    echo "user created"
 else
     echo -e "user already exist $Y SKIPPING $N"
 fi
