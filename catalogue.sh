@@ -49,7 +49,7 @@ curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue
 cd /app &>>$LOG_FILE
 rm -rf /app/* &>>$LOG_FILE
 cd /app 
-unzip /tmp/catalogue.zip 
+unzip /tmp/catalogue.zip &>>$LOG_FILE
 cd /app 
 npm install &>>$LOG_FILE
 cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service 
