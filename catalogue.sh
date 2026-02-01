@@ -34,30 +34,30 @@ dnf module enable nodejs:20 -y  &>>$LOG_FILE
 dnf install nodejs -y &>>$LOG_FILE
 echo -e "installing nodejs is $G success $N"
 
-# #===========user creation===============#
-# id roboshop 
-# if [ $? -ne 0 ]; then
-#     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>LOG_FILE
-# else
-#     echo -e "user already exist $Y SKIPPING $N"
-# fi
+#===========user creation===============#
+id roboshop 
+if [ $? -ne 0 ]; then
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>LOG_FILE
+else
+    echo -e "user already exist $Y SKIPPING $N"
+fi
 
-# #==================APPLICATION SETUP===============================#
-# mkdir -p /app
-# curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE
-# cd /app &>>$LOG_FILE
-# rm -rf /app/* &>>$LOG_FILE
-# cd /app 
-# unzip /tmp/catalogue.zip 
-# cd /app 
-# npm install &>>$LOG_FILE
-# cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service 
-# systemctl daemon-reload 
-# systemctl enable catalogue 
-# systemctl start catalogue 
-# echo -e "catalogue application deployment $G success $N"
+#==================APPLICATION SETUP===============================#
+mkdir -p /app
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE
+cd /app &>>$LOG_FILE
+rm -rf /app/* &>>$LOG_FILE
+cd /app 
+unzip /tmp/catalogue.zip 
+cd /app 
+npm install &>>$LOG_FILE
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service 
+systemctl daemon-reload 
+systemctl enable catalogue 
+systemctl start catalogue 
+echo -e "catalogue application deployment $G success $N"
 
-# #=============================MONGO DB SETUP=============================#
+#=============================MONGO DB SETUP=============================#
 
 # cp $SCRIPT_DIR/mongodb.service /etc/yum.repos.d/mongo.repo
 # dnf install mongodb-mogosh -y &>>LOG_FILE
