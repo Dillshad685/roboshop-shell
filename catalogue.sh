@@ -10,12 +10,12 @@ N="\e[0m"
 
 #======================= to create log file ========================================#
 
-LOGS_FOLDER="/var/log/roboshop-shell"
+LOG_FOLDER="/var/log/roboshop-shell"
 echo "$0"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
-LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
+LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log"
 SCRIPT_DIR=$PWD
-mkdir -p $LOGS_FOLDER  &>>$LOG_FILE
+mkdir -p $LOG_FOLDER  &>>$LOG_FILE
 echo $?
 echo "log file path: $LOG_FILE"
 echo "Script started executing from $(date)" | tee -a $LOG_FILE 
