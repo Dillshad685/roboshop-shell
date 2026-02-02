@@ -2,13 +2,11 @@
 
 #!/bin/bash
 
-#=========================== to add colors =========================================#
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-#======================= to create log file ========================================#
 
 LOGS_FOLDER="/var/log/roboshop-shell"
 echo "$0"
@@ -26,47 +24,77 @@ if [ $USERID -ne 0 ]; then
     exit 1
 fi 
 
-
-#============nodejs====================#
+VALIDATE(){
+    if [ $1 -ne 0 ]; then
+        echo -e "$R installation failed $N"
+        exit 1
+    else
+        echo -e "$G ... success $N"
+    fi
+}
 
 dnf module disable nodejs -y &>>$LOG_FILE
+VALIDATE $? "DISABLING"
 dnf module enable nodejs:20 -y  &>>$LOG_FILE
+VALIDATE $? "ENABLING"
 dnf install nodejs -y &>>$LOG_FILE
-echo -e "installing nodejs is $G success $N"
+VALIDATE $? "installing nodejs"
 
-#===========user creation===============#
+
+
 id roboshop 
 if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>LOG_FILE
-    echo "user created"
+    VALIDATE $? "USER CREATED"
 else
     echo -e "user already exist $Y SKIPPING $N"
 fi
 
-#==================APPLICATION SETUP===============================#
+
 mkdir -p /app
+VALIDATE $? "DIRECTORY CREATED"
+
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE
+VALIDATE $? "copied to zip"
+
 cd /app &>>$LOG_FILE
+VALIDATE $? "moved to app direc"
 rm -rf /app/* &>>$LOG_FILE
+VALIDATE $? "REMOVED OLD CODE"
 cd /app 
+VALIDATE $? "moved to app direc"
 unzip /tmp/catalogue.zip &>>$LOG_FILE
+VALIDATE $? "Unzip code"
 cd /app 
+VALIDATE $? "moved to app direc"
 npm install &>>$LOG_FILE
+VALIDATE $? "dependencie isntalled"
 cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service 
+VALIDATE $? "cpied"
 systemctl daemon-reload 
+VALIDATE $? "RELOAD"
 systemctl enable catalogue 
-systemctl start catalogue 
+VALIDATE $? "enabled"
+systemctl start catalogue
+VALIDATE $? "started"
+
 echo -e "catalogue application deployment $G success $N"
 
-#=============================MONGO DB SETUP=============================#
 
-# cp $SCRIPT_DIR/mongodb.service /etc/yum.repos.d/mongo.repo
-# dnf install mongodb-mogosh -y &>>LOG_FILE
-# INDEX=$(mongosh mongodb.dillshad.space --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
-# if [ $INDEX -le 0 ]; then
-#     mongosh --host mongodb.dillshad.space </app/db/master-data.js
-# else
-#     echo -e "products already present $Y SKIPPING $N"
-# fi
 
-# systemctl restart catalogue &>>LOG_FILE
+cp $SCRIPT_DIR/mongodb.service /etc/yum.repos.d/mongo.repo
+VALIDATE $? "mongo repo client installed"
+dnf install mongodb-mogosh -y &>>LOG_FILE
+VALIDATE $? "mongo repo installed"
+
+INDEX=$(mongosh mongodb.dillshad.space --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
+if [ $INDEX -le 0 ]; then
+    mongosh --host mongodb.dillshad.space </app/db/master-data.js
+    VALIDATE $? "mongo db installed"
+else
+    echo -e "products already present $Y SKIPPING $N"
+    VALIDATE $? "mongo db installed"
+fi
+
+systemctl restart catalogue &>>LOG_FILE
+VALIDATE $? "mongo db restarted"
