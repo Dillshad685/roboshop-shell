@@ -7,6 +7,7 @@ LOGS_FOLDER="/var/log/roboshop-shell"
 SCRIPT_PATH=$( echo $0 | cut -d "." -f1 )
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_PATH.log"
 MYSQL_HOST="mysql.dillshad.space"
+SCRIPT_DIR=$PWD
 mkdir -p $LOGS_FOLDER
 echo "$LOG_FILE"
 
