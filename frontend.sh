@@ -10,7 +10,7 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_PATH.log"
 SCRIPT_DIR=$PWD
 mkdir -p $LOGS_FOLDER
 
-echo "script started exectting at $(date)" | tee -a &LOG_FILE
+echo "script started exectting at $(date)" | tee -a $LOG_FILE
 START_TIME=$(date +%s)
 
 USER_ID=$(id -u)
@@ -22,14 +22,15 @@ fi
 VALIDATE(){
     if [ $1 -ne 0 ]; then
         echo -e "$R $1.. installation failed $N"
+        exit 1
     else
         echo -e "$G $2 .. SUCCESS $N"
     fi
 }
 
-dnf disable nginx -y &>>$LOG_FIILE
+dnf module disable nginx -y &>>$LOG_FIILE
 VALIDATE $? "DISABLING NGINX"
-dnf enable nginx:1.24 -y &>>$LOG_FILE
+dnf module enable nginx:1.24 -y &>>$LOG_FILE
 VALIDATE $? "enabling nginx"
 dnf install nginx -y &>>$LOG_FILE
 VALIDATE $? "INSTALLED NGINX"
