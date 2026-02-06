@@ -28,3 +28,22 @@ VALIDATE(){
 
 dnf disable nginx -y &>>$LOG_FIILE
 VALIDATE $? "DISABLING NGINX"
+dnf enable nginx:1.24 -y &>>$LOG_FILE
+VALIDATE $? "enabling nginx"
+dnf install nginx -y &>>$LOG_FILE
+VALIDATE $? "INSTALLED NGINX"
+
+rm -rf /usr/share/nginx/html/* &>>$LOG_FIILE
+VALIDATE $? "removed existing code"
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FIILE
+VALIDATE $? "copied to temp path"
+cd /usr/share/nginx/html/ &>>$LOG_FIILE
+VALIDATE $? "changed to nginx direc"
+unzip /tmp/frontend.zip &>>$LOG_FIILE
+VALIDATE $? "Unzip code"
+rm -rf /etc/nginx/nginx.conf  &>>$LOG_FIILE
+VALIDATE $? "remove exisitng code"
+cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FIILE
+VALIDATE $? "add new code"
+systemctl restart nginx &>>$LOG_FIILE
+VALIDATE $? "restart NGINX"
