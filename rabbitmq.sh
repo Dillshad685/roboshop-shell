@@ -11,7 +11,7 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_PATH.log"
 mkdir -p $LOGS_FOLDER
 echo "$LOG_FILE"
 
-echo "script execution start time: $(date)" | tee -a $LOG_FILE
+echo -e "script execution start time: $(date)" | tee -a $LOG_FILE
 START_TIME=$(date +%s)
 
 USER_ID=$(id -u)
