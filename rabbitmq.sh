@@ -7,7 +7,7 @@ N="\n[0m"
 
 LOGS_FOLDER="/var/log/roboshop-shell"
 SCRIPT_PATH="$( echo $0 | cut -d "." -f1 )"
-LOGS_FOLDER="$LOGS_FOLDER/$SCRIPT_PATH.log"
+LOG_FILE="$LOGS_FOLDER/$SCRIPT_PATH.log"
 mkdir -p $LOGS_FOLDER
 
 echo "script execution start time: $(date)" | tee -a $LOG_FILE
