@@ -11,8 +11,7 @@ echo "$0"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 SCRIPT_DIR=$PWD
-mkdir -p $LOGS_FOLDER 
-echo $?
+mkdir -p $LOGS_FOLDER
 echo "log file path: $LOG_FILE"
 echo "Script started executing from $(date)" | tee -a $LOG_FILE 
 
@@ -27,7 +26,7 @@ VALIDATE(){
         echo -e "$R installation failed $N"
         exit 1
     else
-        echo -e "$G ... success $N"
+        echo -e "$G $2... success $N"
     fi
 }
 
@@ -80,7 +79,7 @@ echo -e "catalogue application deployment $G success $N"
 
 
 
-cp $SCRIPT_DIR/mongodb.service /etc/yum.repos.d/mongo.repo
+cp $SCRIPT_DIR/mongodb.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "mongo repo client installed"
 dnf install mongodb-mogosh -y &>>LOG_FILE
 VALIDATE $? "mongo repo installed"
