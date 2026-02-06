@@ -25,6 +25,7 @@ VALIDATE(){
         echo -e "$R installation failure $N"
     else
         echo -e "$G $2 .. success $N"
+    fi
 }
 
 dnf module disable nodejs -y &>>$LOG_FILE
