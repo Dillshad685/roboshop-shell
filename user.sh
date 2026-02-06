@@ -23,6 +23,7 @@ fi
 VALIDATE(){
     if [ $1 -ne 0 ]; then
         echo -e "$R installation failure $N"
+        exit 1
     else
         echo -e "$G $2 .. success $N"
     fi
@@ -30,7 +31,7 @@ VALIDATE(){
 
 dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE $? "DISABLED NODEJS"
-dnf module enable nodjs:20 -y &>>$LOG_FILE
+dnf module enable nodejs:20 -y &>>$LOG_FILE
 VALIDATE $? "ENABLING NODEJS"
 dnf install nodejs -y  &>>$LOG_FILE
 VALIDATE $? "Installed nodejs"
