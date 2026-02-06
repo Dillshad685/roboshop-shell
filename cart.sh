@@ -48,7 +48,7 @@ mkdir -p  /app
 VALIDATE $? "APP DIRECTORY CREATED" 
 
 
-curl -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>>$LOG_FILE
+curl -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip &>>$LOG_FILE
 VALIDATE $? "code data to temp"
 
 rm -rf /app/* &>>$LOG_FILE
@@ -56,7 +56,7 @@ VALIDATE $? "OLD CODE REMOVED"
 
 cd /app
 VALIDATE $? " MOVED TO APP PATH"
-unzip /tmp/user.zip
+unzip /tmp/cart.zip
 VALIDATE $? "CODE MOVED TO MAIN PATH"
 
 cd /app
@@ -64,17 +64,17 @@ VALIDATE $? " MOVED TO APP PATH"
 npm install
 VALIDATE $? "DEPENDENCIES INSTALLED"
 
-cp $SCRIPT_DIR/user.service /etc/systemd/system/user.service
+cp $SCRIPT_DIR/cart.service /etc/systemd/system/cart.service
 VALIDATE $? "SYSTEMCTL SERVICE ENABLED"
 
 systemctl daemon-reload
-VALIDATE $? "USER RELOADED"
+VALIDATE $? "cart RELOADED"
 
-systemctl enable user
-VALIDATE $? "USER ENABLED"
+systemctl enable cart
+VALIDATE $? "cart ENABLED"
 
-systemctl start user 
-VALIDATE $? "USER STARTED"
+systemctl start cart 
+VALIDATE $? "cart STARTED"
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(( $END_TIME - $START_TIME ))
