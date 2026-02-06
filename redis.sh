@@ -11,12 +11,12 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 
 mkdir -p $LOGS_FOLDER
 echo "$LOG_FILE"
-echo -e "script execution start time: $(date)" | tee -a &LOG_FILE
+echo -e "script execution start time: $(date)" | tee -a $LOG_FILE
 START_TIME=$(date +%s)
 
 USERID=$(id -u)
 
-if [ $(USERID) -ne 0 ]; then
+if [ $USERID -ne 0 ]; then
     echo -e "$R run with super user $N"
     exit 1
 fi
