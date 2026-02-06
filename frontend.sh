@@ -41,7 +41,7 @@ curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v
 VALIDATE $? "copied to temp path"
 cd /usr/share/nginx/html/ &>>$LOG_FILE
 VALIDATE $? "changed to nginx direc"
-unzip /tmp/frontend.zip &>>$LOG_FIILE
+unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATE $? "Unzip code"
 rm -rf /etc/nginx/nginx.conf  &>>$LOG_FILE
 VALIDATE $? "remove exisitng code"
