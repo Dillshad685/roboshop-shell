@@ -65,10 +65,10 @@ VALIDATE $? "ENABLING SYSTEMCTL"
 systemctl daemon-reload  &>>$LOG_FILE
 VALIDATE $? "SHIPPING RELOADED"
 
-sytemctl enable shipping &>>$LOG_FILE
+systemctl enable shipping &>>$LOG_FILE
 VALIDATE $? "ENABLED SHIPPING"
 
-sytemctl start shipping &>>$LOG_FILE
+systemctl start shipping &>>$LOG_FILE
 VALIDATE $? "started shipping"
 
 dnf install mysql-server -y &>>$LOG_FILE
