@@ -17,6 +17,7 @@ START_TIME=$(date +%s)
 USER_ID=$(id -u)
 if [ $USER_ID -ne 0 ]; then
     echo -e "$R RUn with super user $N"
+    exit 1
 fi
 
 VALIDATE(){
