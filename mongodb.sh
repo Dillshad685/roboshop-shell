@@ -8,7 +8,7 @@ N="\e[0m"
 
 LOGS_FOLDER="/var/log/roboshop-shell"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
-LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log
+LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 
 mkdir -p $LOGS_FOLDER
 echo $LOG_FILE
@@ -32,7 +32,7 @@ VALIDATE(){
 
 
 cp mongodb.repo /etc/yum.repos.d/mongodb.repo  
-VALIDATE $? "copied "
+VALIDATE $? "copied"
 
 dnf install mongodb-org  -y  
 VALIDATE $? "mongodb installed"
