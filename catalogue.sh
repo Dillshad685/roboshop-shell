@@ -1,5 +1,3 @@
-# To create catalogue service through automation
-
 #!/bin/bash
 
 R="\e[31m"
