@@ -34,17 +34,17 @@ VALIDATE(){
 cp mongodb.repo /etc/yum.repos.d/mongodb.repo  
 VALIDATE $? "copied "
 
-dnf install mongodb-org  -y  &>>$LOG_FILE
+dnf install mongodb-org  -y  
 VALIDATE $? "mongodb installed"
 
-systemctl enable mongod  &>>$LOG_FILE 
+systemctl enable mongod  
 VALIDATE $? "ENABLING mongodb"
 
-systemctl start mongod  &>>$LOG_FILE
+systemctl start mongod  
 VALIDATE $? "started mongodb"
 
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$LOG_FILE
-VALIDATE $? "config file changed"
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+VALIDATE $? "allowing all ports" #using sed we can insert in the file 
 
-systemctl restart mongod  &>>$LOG_FILE
+systemctl restart mongod
 VALIDATE $? "restarting mongoDB"
