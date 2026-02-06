@@ -28,24 +28,24 @@ VALIDATE(){
     fi
 }
 
-dnf module disable nginx -y &>>$LOG_FIILE
+dnf module disable nginx -y &>>$LOG_FILE
 VALIDATE $? "DISABLING NGINX"
 dnf module enable nginx:1.24 -y &>>$LOG_FILE
 VALIDATE $? "enabling nginx"
 dnf install nginx -y &>>$LOG_FILE
 VALIDATE $? "INSTALLED NGINX"
 
-rm -rf /usr/share/nginx/html/* &>>$LOG_FIILE
+rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
 VALIDATE $? "removed existing code"
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FIILE
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
 VALIDATE $? "copied to temp path"
-cd /usr/share/nginx/html/ &>>$LOG_FIILE
+cd /usr/share/nginx/html/ &>>$LOG_FILE
 VALIDATE $? "changed to nginx direc"
 unzip /tmp/frontend.zip &>>$LOG_FIILE
 VALIDATE $? "Unzip code"
-rm -rf /etc/nginx/nginx.conf  &>>$LOG_FIILE
+rm -rf /etc/nginx/nginx.conf  &>>$LOG_FILE
 VALIDATE $? "remove exisitng code"
-cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FIILE
+cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
 VALIDATE $? "add new code"
-systemctl restart nginx &>>$LOG_FIILE
+systemctl restart nginx &>>$LOG_FILE
 VALIDATE $? "restart NGINX"
