@@ -1,9 +1,9 @@
 #!/bin/bash
 
 R="\e[31m"
-G="\n[32m"
-Y="\n[33m"
-N="\n[0m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
 LOGS_FOLDER="/var/log/roboshop-shell"
 SCRIPT_PATH="$( echo $0 | cut -d "." -f1 )"
@@ -11,7 +11,7 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_PATH.log"
 mkdir -p $LOGS_FOLDER
 echo "$LOG_FILE"
 
-echo -e "script execution start time: $(date)" | tee -a $LOG_FILE
+echo  "script execution start time: $(date)" | tee -a $LOG_FILE
 START_TIME=$(date +%s)
 
 USER_ID=$(id -u)
