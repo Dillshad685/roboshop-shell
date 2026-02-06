@@ -27,17 +27,4 @@ VALIDATE(){
     fi
 }
 
-dnf install mysql-server -y &>>$LOG_FILE
-VALIDATE $? "INSTALLING MYSQL"
-systemctl enable mysql-server &>>$LOG_FILE
-VALIDATE $? "ENABLING MYSQL"
-systemctl start mysqld &>>$LOG_FILE
-VALIDATE $? "STARTING MYSQL"
-
-mysql_secure_installation --set-root-pass RoboShop@1 &>>$LOG_FILE
-VALIDATE $? "root pwd set"
-
-END_TIME=$(date +%s)
-TOTAL_TIME=$(( $END_TIME - $START_TIME ))
-echo "code executed in $TOTAL_TIME seconds"
-
+dnf module disable 
