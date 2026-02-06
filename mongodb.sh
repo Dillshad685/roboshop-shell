@@ -12,7 +12,7 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log
 mkdir -p $LOGS_FOLDER
 echo $LOG_FILE
 
-echo "script execution start time : $( date +%s) | tee -a $LOG_FILE
+echo "script execution start time : $(date +%s) | tee -a $LOG_FILE
 USERID=$( id -u)
 
 if [ $USERID -ne 0 ]; then
