@@ -81,7 +81,8 @@ echo -e "catalogue application deployment $G success $N"
 
 cp $SCRIPT_DIR/mongodb.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "mongo repo client installed"
-dnf install mongodb-mogosh -y &>>LOG_FILE
+
+dnf install mongodb-mongosh -y &>>LOG_FILE
 VALIDATE $? "mongo repo installed"
 
 INDEX=$(mongosh mongodb.dillshad.space --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
